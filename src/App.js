@@ -1,23 +1,22 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.scss";
+import React, { useState, useEffect } from "react";
+import Card from "./components/Card";
+import fetchBlogPosts from "./requests/blogPosts";
 
 function App() {
+  const [posts, setPosts] = useState([]);
+
+  useEffect(() => {
+    fetchBlogPosts(setPosts);
+  }, []);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div className="row u-equal-height u-clearfix">
+        {posts.map((post) => (
+          <Card post={post} key={post.id} />
+        ))}
+      </div>
     </div>
   );
 }
